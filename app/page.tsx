@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import logo from '@/public/next.svg';
+import logo from "@/public/next.svg";
 
 export default function Home() {
   return (
@@ -25,7 +25,7 @@ export default function Home() {
 
       <p className="mt-6">この画面はメンテナンスモードを適用しない</p>
 
-      <ul className="mt-2">
+      <ul className="mt-2 list-disc">
         <li>
           <Link href="/dashboard" className="underline">
             Dashboard

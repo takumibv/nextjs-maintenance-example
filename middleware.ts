@@ -8,6 +8,15 @@ const isMaintenanceMode = Boolean(process.env.NEXT_PUBLIC_MAINTENANCE_MODE);
 const maintenanceWhiteListIPs = process.env.NEXT_PUBLIC_MAINTENANCE_WHITELIST?.split(",") ?? [];
 
 export function middleware(request: NextRequest) {
+  if (!isMaintenanceMode) {
+    // メンテナンスモードでない時は、/maintenance を404にする
+    if (request.nextUrl.pathname === "/maintenance") {
+      request.nextUrl.pathname = "/404";
+      return NextResponse.rewrite(request.nextUrl);
+    }
+    return;
+  }
+
   const { pathname } = request.nextUrl;
   const ip = getIP(request);
 
@@ -21,12 +30,6 @@ export function middleware(request: NextRequest) {
 
     // メンテナンス画面へリダイレクト
     return NextResponse.redirect(`${process.env.NEXT_PUBLIC_APP_HOST}/maintenance`);
-  }
-
-  // メンテナンスモードでない時は、/maintenance を404にする
-  if (!isMaintenanceMode && request.nextUrl.pathname === "/maintenance") {
-    request.nextUrl.pathname = `/404`;
-    return NextResponse.rewrite(request.nextUrl);
   }
 }
 

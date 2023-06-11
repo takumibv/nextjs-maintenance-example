@@ -1,6 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
-import logo from '@/public/next.svg';
+import logo from "@/public/next.svg";
+
+export const metadata = {
+  title: "Maintenance",
+  robots: "noindex",
+};
 
 export default function Maintenance() {
   return (
@@ -22,5 +27,5 @@ export default function Maintenance() {
         </Link>
       </div>
     </main>
-  )
+  );
 }
